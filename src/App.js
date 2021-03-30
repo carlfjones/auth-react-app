@@ -1,16 +1,27 @@
 import './App.css';
-import { Card } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './components/Homepage'
 import TopNavbar from './components/Navbar'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from './components/footer'
+import Signup from './components/Signup'
+import { AuthProvider } from './contexts/AuthContext'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 
 function App() {
   return (
-    <div className="App">
-      <TopNavbar />
-      <Homepage />
-
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <TopNavbar />
+        <Router>
+          <Switch>
+            <Route exact path='/' component={Homepage} />
+            <Route path='/signup' component={Signup} />
+          </Switch>
+        </Router>
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 }
 

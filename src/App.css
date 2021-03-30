@@ -1,11 +1,61 @@
 /* NAVBAR */
 
 .nav-btn {
+  font-family: 'Anton', sans-serif;
   color: rgb(255, 255, 255) !important;
 }
 
 /* HOMEPAGE */
 .hero_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 80vh;
   width: 100vw;
+  background-image: url('./imgs/hero_img.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.title_btn_container { 
+  font-family: 'Anton', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  color: antiquewhite;
+}
+
+.hero_btn {
+  margin: 30px;
+}
+/* Footer */
+.footer {
+  font-size: 0.8rem;
+  height: 20vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* SIGN UP PAGE */
+
+.sign_up_cont {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+.sign_up_background {
+  background: url('./imgs/sign_up_background_img.jpg');
+  background-position: center;
+  background-size: cover;
+}
+.sign_up_form_title {
+  font-family: 'Anton', sans-serif;
 }
