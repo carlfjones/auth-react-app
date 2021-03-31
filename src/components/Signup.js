@@ -7,7 +7,7 @@ export default function Signup() {
 const emailRef = useRef(null)
 const passwordRef = useRef(null)
 const passwordConfirmRef = useRef(null)
-const { signup, currentUser } = useAuth()
+const { signup, currentUser, checkIfEmailIsRegistered } = useAuth()
 const [error, setError] = useState('')
 const [loading, setLoading] = useState(false)
 
@@ -20,13 +20,22 @@ async function handleSubmit(e) {
     if (( password === passwordConf) && (password.length >= 6)) {
         setError('')
         setLoading(true)
+        checkingEmail(await checkIfEmailIsRegistered(emailRef.current.value))
         await signup(emailRef.current.value, passwordRef.current.value)
+        // console.log(signup(emailRef.current.value, passwordRef.current.value))
     } else if (( password !== passwordConf) && (password.length >= 6)) {
         setError('Passwords do not match!')
     } else if (password.length < 6) {
         setError('Password needs to be at least 6 characters!')
     }
     
+}
+
+async function checkingEmail(email) {
+    if (email[0] === "password") {
+        setError('Email address already registered')
+        setLoading(false)
+    }
 }
 
 function throwError(err) {

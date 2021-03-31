@@ -14,7 +14,8 @@ export function AuthProvider({children}) {
     const value = {
         currentUser,
         signup,
-        login
+        login,
+        checkIfEmailIsRegistered
     }
 
     function signup(email, password) {
@@ -25,12 +26,16 @@ export function AuthProvider({children}) {
         return auth.signInWithEmailAndPassword(email, password)
     }
 
+    function checkIfEmailIsRegistered(email) {
+        return auth.fetchSignInMethodsForEmail(email)
+    }
+
     useEffect(() => {
         const unsubcscribe = auth.onAuthStateChanged(user => {
             setCurrentuser(user)
             setLoading(false)
         })
-        return (unsubcscribe)
+        return unsubcscribe
     }, [])
 
 

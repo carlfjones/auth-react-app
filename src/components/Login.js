@@ -1,11 +1,12 @@
 import React, { useRef, useState} from 'react' 
 import { useAuth } from '../contexts/AuthContext'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 export default function Signup() {
 const emailRef = useRef(null)
 const passwordRef = useRef(null)
+const history = useHistory()
 
 const { login, currentUser } = useAuth()
 const [error, setError] = useState('')
@@ -21,7 +22,9 @@ async function handleSubmit(e) {
         setError('')
         setLoading(true)
         await login(emailRef.current.value, passwordRef.current.value)
+        history.push('/Dashboard')
     } catch {
+        setLoading(false)
         setError('Incorrect Username/Password!')
     }
     
