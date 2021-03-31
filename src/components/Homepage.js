@@ -8,7 +8,7 @@ export default function Homepage() {
             <div className="title_btn_container">
                 <h1 className="title"> The Workout App</h1>
                 <div className="btn_cont">
-                    <Button className="hero_btn" variant="light">Log In</Button>
+                    <Link to="./Login"><Button className="hero_btn" variant="light">Log In</Button></Link>
                     <Link to='./Signup'><Button className="hero_btn" variant="dark">Sign Up</Button></Link>
                 </div>
             </div>
