@@ -1,6 +1,6 @@
-import React, { useRef} from 'react' 
+import React, { useRef, useState} from 'react' 
 import { useAuth } from '../contexts/AuthContext'
-import { Form, Button, Card } from 'react-bootstrap'
+import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 export default function Signup() {
@@ -8,16 +8,35 @@ const emailRef = useRef(null)
 const passwordRef = useRef(null)
 const passwordConfirmRef = useRef(null)
 const { signup } = useAuth()
+const [error, setError] = useState('')
+const [loading, setLoading] = useState(false)
 
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
     e.preventDefault()
+    const password = passwordRef.current.value
+    const passwordConf = passwordConfirmRef.current.value
 
-   
-
-    signup(emailRef.current.value, passwordRef.current.value)
-
+    if (( password === passwordConf) && (password.length >= 6)) {
+        setError('')
+        setLoading(true)
+        await signup(emailRef.current.value, passwordRef.current.value)
+    } else if (( password !== passwordConf) && (password.length >= 6)) {
+        setError('Passwords do not match!')
+    } else if (password.length < 6) {
+        setError('Password needs to be at least 6 characters!')
+    }
+    
 }
+
+function passwordsDoNotMatch(err) {
+    if (err.length > 0) {
+        console.log(err.length)
+       return <Alert variant='danger'>{error}</Alert>
+    }
+}
+
+
 
     return (
         <div className="sign_up_background">
@@ -25,6 +44,8 @@ function handleSubmit(e) {
                 <Card className='w-50' style={{minWidth: '500px'}}>
                     <Card.Body>
                         <h2 className="text-center mb-4 sign_up_form_title">Sign Up</h2>
+                        {passwordsDoNotMatch(error)}
+                        {console.log(error)}
                         <Form onSubmit={handleSubmit} className="w-100">
                             <Form.Group id='email'>
                                 <Form.Label>Email:</Form.Label>
@@ -37,7 +58,7 @@ function handleSubmit(e) {
                                 <Form.Label>Password Confirmation:</Form.Label>
                                 <Form.Control type="password" ref={passwordConfirmRef} required/>
                             </Form.Group>
-                            <Button className='w-100' type='submit'>Sign Up</Button>
+                            <Button disabled={loading} className='w-100' type='submit'>Sign Up</Button>
                         </Form>
                     </Card.Body>
 

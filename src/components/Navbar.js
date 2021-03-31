@@ -15,7 +15,7 @@ export default function TopNavbar() {
                 />{' '}
             
             </Navbar.Brand>
-            <Button variant="outline-secondary" className='nav-btn'>Log In</Button>
+            {/* <Button variant="outline-secondary" className='nav-btn'>Log In</Button> */}
         </Navbar>
     )
 }
